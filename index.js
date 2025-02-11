@@ -22,7 +22,6 @@ const rendering = () => {
     const edit = document.createElement("button")
     edit.innerText = "수정"
     edit.onclick = () => {
-      console.log("수정 시작")
       div.innerHTML = null
       const confirm = document.createElement("button")
       const cancel = document.createElement("button")
@@ -36,7 +35,6 @@ const rendering = () => {
       ni.style.outline = "none"
 
       cancel.onclick = () => {
-        console.log("취소 ㄱㄱ")
         div.innerHTML = null
         div.append(p, edit, button)
       }
@@ -62,6 +60,12 @@ const rendering = () => {
         rendering()
       }
 
+      ni.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === "Tab") {
+          confirm.onclick()
+        }
+      })
+
       div.append(ni, confirm, cancel)
 
       ni.focus()
@@ -71,7 +75,6 @@ const rendering = () => {
     const p = document.createElement("p")
     p.innerText = list[i]
     const div = document.createElement("div")
-    let isEditing = false
 
     div.append(p, edit, button)
     const li = document.createElement("li")
@@ -94,7 +97,6 @@ form.addEventListener("submit", (event) => {
   }
   // list.push()
   list.unshift(item)
-  console.log(list)
   db.setItem("list", JSON.stringify(list))
   rendering()
   input.value = ""
